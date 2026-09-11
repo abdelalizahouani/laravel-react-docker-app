@@ -1,59 +1,318 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel React Docker App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Full-stack web application built with **Laravel API** and **React**, running in a Docker environment.
 
-## About Laravel
+The project includes authentication, role-based access control, permissions management, user management, role management, and product CRUD.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Backend
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* PHP 8.2
+* Laravel 12
+* Laravel Sanctum
+* Spatie Laravel Permission
+* PostgreSQL 16
+* REST API
 
-## Learning Laravel
+### Frontend
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* React 19
+* Vite
+* React Router
+* Axios
+* JavaScript
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### DevOps
 
-## Laravel Sponsors
+* Docker
+* Docker Compose
+* Apache
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ✨ Features
 
-### Premium Partners
+### Authentication
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* User registration
+* User login
+* User logout
+* Authenticated user information
+* Token-based authentication with Laravel Sanctum
 
-## Contributing
+### Authorization
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Role-based access control
+* Permission-based access control
+* Multiple roles per user
+* Dynamic permissions
+* Protected API routes
+* Protected React routes
 
-## Code of Conduct
+### Roles & Permissions
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Create roles
+* Update roles
+* Delete roles
+* Create permissions
+* Update permissions
+* Delete permissions
+* Assign permissions to roles
+* Synchronize role permissions
 
-## Security Vulnerabilities
+### User Management
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* List users
+* Create users
+* Update users
+* Delete users
+* Assign multiple roles to users
 
-## License
+### Products
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* List products
+* View a product
+* Create products
+* Update products
+* Delete products
+
+## 🏗️ Project Architecture
+
+
+laravel-react-docker-app/
+│
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   └── Models/
+│
+├── database/
+│   ├── migrations/
+│   └── seeders/
+│
+├── routes/
+│   ├── api.php
+│   └── web.php
+│
+├── frontend/
+│   └── src/
+│       ├── components/
+│       ├── context/
+│       ├── pages/
+│       ├── routes/
+│       └── services/
+│
+├── Dockerfile
+├── docker-compose.yml
+└── composer.json
+
+
+## 🐳 Running the Project with Docker
+
+### Requirements
+
+Make sure you have installed:
+
+* Docker Desktop
+* Git
+
+### 1. Clone the repository
+
+
+git clone https://github.com/abdelalizahouani/laravel-react-docker-app.git
+
+
+
+cd laravel-react-docker-app
+
+
+### 2. Configure environment
+
+Create the Docker environment file:
+
+
+cp .env.example .env.docker
+
+Then configure your PostgreSQL connection in `.env.docker`.
+
+Example:
+
+
+APP_NAME=Laravel
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=pos_react
+DB_USERNAME=postgres
+DB_PASSWORD=admin
+
+
+Generate an application key:
+
+
+docker compose run --rm app php artisan key:generate --env=docker
+
+
+### 3. Start Docker containers
+
+
+docker compose up -d
+
+
+Check the containers:
+
+
+docker compose ps
+
+
+### 4. Run migrations
+
+
+docker compose exec app php artisan migrate
+
+
+### 5. Seed roles and permissions
+
+
+docker compose exec app php artisan db:seed --class=RolePermissionSeeder
+
+
+## 🌐 Application URLs
+
+### Laravel API
+
+
+http://localhost:8000
+
+
+### React Frontend
+
+
+http://localhost:5173
+
+
+## 🔐 API Authentication
+
+Authentication is implemented using **Laravel Sanctum**.
+
+The React application stores the authentication token and sends it with API requests using the `Authorization` header.
+
+Example:
+
+
+Authorization: Bearer <token>
+
+
+## 🛡️ Permissions
+
+The application uses **Spatie Laravel Permission**.
+
+Example permissions:
+
+
+products.view
+products.create
+products.update
+products.delete
+
+users.view
+users.create
+users.update
+users.delete
+
+permissions.view
+permissions.create
+permissions.update
+permissions.delete
+
+roles.view
+roles.create
+roles.update
+roles.delete
+roles.permissions
+
+
+## 👥 Default Roles
+
+The application includes three main roles:
+
+| Role    | Description       |
+| ------- | ----------------- |
+| admin   | Full access       |
+| manager | Management access |
+| user    | Limited access    |
+
+Permissions can be assigned dynamically to roles.
+
+## 🗄️ Database
+
+The application uses:
+
+
+PostgreSQL 16
+
+
+The PostgreSQL database runs inside Docker and uses a persistent Docker volume.
+
+## 📦 Main API Resources
+
+
+POST   /api/register
+POST   /api/login
+POST   /api/logout
+GET    /api/user
+
+GET    /api/products
+POST   /api/products
+GET    /api/products/{id}
+PUT    /api/products/{id}
+DELETE /api/products/{id}
+
+GET    /api/users
+POST   /api/users
+PUT    /api/users/{id}
+DELETE /api/users/{id}
+
+GET    /api/roles
+POST   /api/roles
+PUT    /api/roles/{id}
+DELETE /api/roles/{id}
+
+GET    /api/permissions
+POST   /api/permissions
+PUT    /api/permissions/{id}
+DELETE /api/permissions/{id}
+
+
+## 📚 What This Project Demonstrates
+
+This project was built to practice and demonstrate:
+
+* Laravel REST API development
+* React application development
+* Authentication with Laravel Sanctum
+* Authorization with roles and permissions
+* CRUD operations
+* API integration with Axios
+* Protected React routes
+* Protected Laravel API routes
+* PostgreSQL database management
+* Docker containerization
+* Docker Compose
+* Full-stack application architecture
+
+## 👨‍💻 Author
+
+**Abdelali Zahouani**
+
+Full-Stack Developer
+
+GitHub:
+https://github.com/abdelalizahouani
+
+## 📄 License
+
+This project is open-sourced software licensed under the MIT license.
