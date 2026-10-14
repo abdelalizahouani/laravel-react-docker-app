@@ -19,8 +19,11 @@ export function AuthProvider({children}){
         const response = await api.post('/login',data)
         localStorage.setItem('token', response.data.token)
         //setUser(response.data.user)
-        await checkAuth()
-        return response.data
+        const authData = await checkAuth()
+        return {
+            ...response.data,
+            ...authData
+        }
     }
 
     const logout = async ()=>{
@@ -48,9 +51,10 @@ export function AuthProvider({children}){
             setUser(response.data.user)
             setRoles(response.data.roles)
             setPermissions(response.data.permissions)
-
+            
             console.log("USER AFTER SET :", response.data.user)
             console.log("ROLE AFTER SET :", response.data.role)
+            return response.data
         }catch(error){
             console.log("CHECK AUTH ERROR :", error.response?.data)
             console.log("CHECK AUTH STATUS :", error.response?.status)

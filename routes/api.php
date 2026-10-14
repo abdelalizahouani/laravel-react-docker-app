@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DishController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -120,4 +124,70 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/roles/{role}/permissions', [RoleController::class, 'syncPermissions'])
         ->middleware('permission:roles.permissions');
 
+    /// category
+    Route::get('/categories', [CategoryController::class, 'index'])
+    ->middleware('permission:categories.view');
+    
+    Route::post('/categories', [CategoryController::class, 'store'])
+    ->middleware('permission:categories.create');
+
+    Route::get('/categories/{category}', [CategoryController::class, 'show'])
+    ->middleware('permission:categories.view');
+    
+    Route::put('/categories/{category}', [CategoryController::class, 'update'])
+    ->middleware('permission:categories.update');
+
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
+        ->middleware('permission:categories.delete');
+
+
+    //dishes
+    Route::get('/dishes', [DishController::class, 'index'])
+    ->middleware('permission:dishes.view');
+
+    Route::post('/dishes', [DishController::class, 'store'])
+    ->middleware('permission:dishes.create');    
+
+    Route::get('/dishes/{dish}', [DishController::class, 'show'])
+    ->middleware('permission:dishes.view');
+
+    Route::put('/dishes/{dish}', [DishController::class, 'update'])
+    ->middleware('permission:dishes.update');
+
+    Route::delete('/dishes/{dish}', [DishController::class, 'destroy'])
+    ->middleware('permission:dishes.delete');
+
+    //Orders
+    Route::get('/orders', [OrderController::class, 'index'])
+    ->middleware('permission:orders.view');
+
+    Route::post('/orders', [OrderController::class, 'store'])
+    ->middleware('permission:orders.create');
+
+    Route::get('/orders/{order}', [OrderController::class, 'show'])
+    ->middleware('permission:orders.show');
+
+    Route::put('/orders/{order}', [OrderController::class, 'update'])
+    ->middleware('permission:orders.update');
+
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])
+    ->middleware('permission:orders.delete');
+
+    Route::get('/order-items', [OrderItemController::class, 'index'])
+    ->middleware('permission:orders.view');
+
+    Route::post('/order-items', [OrderItemController::class, 'store'])
+    ->middleware('permission:orders.create');
+
+    Route::get('/order-items/{orderItem}', [OrderItemController::class, 'show'])
+    ->middleware('permission:orders.view');
+
+    Route::put('/order-items/{orderItem}', [OrderItemController::class, 'update'])
+    ->middleware('permission:orders.create');
+
+    Route::delete('/order-items/{orderItem}', [OrderItemController::class, 'destroy'])
+    ->middleware('permission:orders.create');
+
+    Route::get('/my-orders', [OrderController::class, 'myOrders'])
+    ->middleware('permission:orders.view');
 });

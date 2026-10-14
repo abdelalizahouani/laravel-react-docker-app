@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-
+import { ADMIN_DASHBOARD_ROUTE, ADMIN_ORDERS_ROUTE } from "../routes/routes"
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }){
-    const {hasPermission,logout} =useAuth()
+    const {hasPermission,logout, hasRole} =useAuth()
     
     const handleNavigation = () => { setSidebarOpen(false) }
 
@@ -21,7 +21,24 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }){
             
             
             <nav className="sidebar-nav">
-                <NavLink to={'/dashboard'} onClick={handleNavigation}>Dashbord</NavLink>
+                
+                
+                {hasRole("admin") ?(
+                    <NavLink
+                    to={ADMIN_DASHBOARD_ROUTE}
+                    onClick={handleNavigation}
+                    style={linkStyle}
+                    >Admin Dashboard
+                    </NavLink>
+                ):(
+                    <NavLink
+                    to='/dashboard'
+                    onClick={handleNavigation}
+                    style={linkStyle}
+                    >Dashboard
+                    </NavLink>
+                )}
+                <NavLink to={'/menu'} onClick={handleNavigation}>Menu</NavLink>
                 {hasPermission("products.view") && (
                     <NavLink onClick={handleNavigation} to={"/products"} style={linkStyle}>
                         Products
@@ -42,7 +59,24 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }){
                     </NavLink> 
                 )}
 
-                
+                {hasRole("admin") &&(
+                    <NavLink
+                        to={ADMIN_ORDERS_ROUTE}
+                        style={linkStyle}
+                        onClick={handleNavigation}
+                    >
+                        Orders
+                    </NavLink>
+                )}
+                {!hasRole("admin") &&(
+                    <NavLink
+                        to={'/dashboard/orders'}
+                        style={linkStyle}
+                        onClick={handleNavigation}
+                    >
+                        Mes commandes
+                    </NavLink>
+                )}
             </nav>
             <button className={"layout-button"} onClick={logout}> Logout </button>
         </aside>

@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 //import { api } from "../services/api"
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from "../context/AuthContext"
+import { ADMIN_DASHBOARD_ROUTE, DASHBOARD_ROUTE } from "../routes/routes"
 
 export default function Login(){
     const {login} = useContext(AuthContext)
@@ -19,11 +20,20 @@ export default function Login(){
         //console.log('DATA :',data)
     
         try{
-            await login(email, password)
+            const authData = await login(email, password)
             ///const response = await api.post('/login',data)
             //console.log('SUCCESS :',response.data)
             //localStorage.setItem('token',response.data.token)
-            navigate('/dashboard')
+            console.log("AUTH DATA AFTER LOGIN :", authData)
+            console.log("ROLES AFTER LOGIN :", authData.roles)
+            console.log("ADMIN ROUTE :", ADMIN_DASHBOARD_ROUTE)
+            console.log("IS ADMIN :", authData.roles.includes("admin"))
+            if(authData.roles.includes("admin")){
+                navigate(ADMIN_DASHBOARD_ROUTE)
+            }else{
+                navigate(DASHBOARD_ROUTE)
+            }
+            //navigate('/dashboard')
         }catch(error){
             console.log('ERROR :',error.response?.data)
         }

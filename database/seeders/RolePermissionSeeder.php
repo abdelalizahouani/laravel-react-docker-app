@@ -38,6 +38,25 @@ class RolePermissionSeeder extends Seeder
             'roles.update',
             'roles.delete',
             'roles.permissions',
+
+            //category
+            'categories.view',
+            'categories.create',
+            'categories.update',
+            'categories.delete',
+
+            //dishes
+            'dishes.view',
+            'dishes.create',
+            'dishes.update',
+            'dishes.delete',
+
+            //orders
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.show',
+            'orders.delete'
         ];
 
         foreach ($permissions as $permission) {
@@ -89,6 +108,25 @@ class RolePermissionSeeder extends Seeder
             'roles.update',
             'roles.delete',
             'roles.permissions',
+
+            //category
+            'categories.view',
+            'categories.create',
+            'categories.update',
+            'categories.delete',
+            
+            //dishes
+            'dishes.view',
+            'dishes.create',
+            'dishes.update',
+            'dishes.delete',
+
+            //orders
+            'orders.view',
+            'orders.create',
+            'orders.update',
+            'orders.show',
+            'orders.delete'
         ]);
 
 
@@ -116,6 +154,7 @@ class RolePermissionSeeder extends Seeder
         $user->syncPermissions([
             'products.view',
             'users.view',
+            'orders.view',
         ]);
     }
 }

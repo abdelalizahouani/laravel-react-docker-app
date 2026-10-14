@@ -111,3 +111,8 @@ code {
   background: var(--code-bg);
 }
 */
+button.active {
+    background-color: #222;
+    color: white;
+    font-weight: bold;
+}
